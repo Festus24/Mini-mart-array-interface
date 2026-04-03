@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="sayName('Mike', 45)">Mike</button>
+    <button onclick="sayName('Hassan', 80)">Hassan</button>
+    <button onclick="sayName('Sola', 4)">Sola</button>
+    <button onclick="sayName('1')">Mike</button>
+    <div id="show"></div>
+</body>
+<script>
+    const sayName = (student = 'user', age = 1) =>{
+        show.innerHTML = `My name is ${student} and i am ${age} years old`
+    }
+</script>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array Interface</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .container-main {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 50px;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .header-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header-title h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .header-title p {
+            color: #666;
+            font-size: 14px;
+            margin: 0;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-control {
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            padding: 14px 18px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 10px;
+            padding: 14px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-submit:active {
+            transform: translateY(-1px);
+        }
+        
+        .input-label {
+            display: block;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-main">
+        <div class="header-title">
+            <h1>Mini Mart</h1>
+            <p>Add items you want to purchase</p>
+        </div>
+        
+    
+            <div class="form-group">
+                <label for="arrayInput" class="input-label">Enter Data:</label>
+                <input type="text" class="form-control" id="item" placeholder="Type something here..." required>
+            </div>
+            
+            <button class="btn-submit" onclick="addItem()">Add Items</button>
+            <div id="show" style="margin-top: 20px;">Items added will show here</div>
+    </div>
+
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Update Item</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control" id="editInput" placeholder="Type something here..." required>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="saveEdit()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script>
+    const allItems = []
+    const addItem = () =>{
+        const userInput = document.getElementById('item').value;
+        if(userInput.trim() == ''){
+            alert('input cannot be empty')
+        }
+        else{
+            allItems.push(userInput)
+            // console.log(allItems);
+            document.getElementById('item').value = ''
+            showItems() 
+            // confirm is a javascript tool
+        }
+    };
+    const editItem = (i) =>{
+        editIndex = i
+        editInput.value = allItems[i]
+        
+    }
+    const saveEdit = () =>{
+        const userEdit = document.getElementById('editInput')
+        // console.log('fuck u');
+        if(userEdit.trim() == ''){
+            
+            alert('input cannot be empty')
+        }
+        else{
+            allItems.splice(editIndex, 1, userEdit)
+            // console.log(allItems);
+            showItems() 
+            document.getElementById('item').value = ''
+            // confirm is a javascript tool
+        }
+    };
+        
+
+    
+    const deleteItem = (index) => {
+        allItems.splice(index, 1)
+        showItems()
+    }
+
+    function showItems(){
+            show.innerHTML = ''
+            for(let i = 0; i < allItems.length; i++){
+                show.innerHTML += `<p>${i+1}. ${allItems[i]} <button onclick="deleteItem(${i})">Delete</button>
+                    <button onclick="editItem(${i})" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button></p>`
+            }
+        }
+</script>
+</html>
